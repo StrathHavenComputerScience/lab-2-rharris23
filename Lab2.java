@@ -1,68 +1,142 @@
-public class DrawingLab
+public class Lab2
 {
-    public static void exercise1()
-    {
-        //insert code here to make a new window with your first drawing
-        Draw.window(500,500);
-        Draw.setFill(true);
-        Draw.setColor(255,0,0);
-        Draw.oval(175,175,150,150);
-        Draw.setColor(255,255,255);
-        Draw.oval(200,200,100,100);
-        Draw.setColor(255,0,0);
-        Draw.oval(225,225,50,50);
-        
-
-    }
-
-    public static void exercise2()
-    {
-        //insert code here to make a new window with your second drawing
-        Draw.window(200,600);
-        Draw.setFill(true);
-        Draw.setColor(255,0,0);
-        Draw.oval(0,0,200,200);
-        Draw.setColor(255,255,0);
-        Draw.oval(0,200,200,200);
-        Draw.setColor(0,255,0);
-        Draw.oval(0,400,200,200);
-
-    }
-
-    public static void exercise3()
-    {
-        //insert code here to make a new window with your third drawing
-        Draw.window(400,400);
-        Draw.setFill(true);
-        Draw.setColor(0,0,255);
-        Draw.rectangle(0,0,800,800);
-        Draw.setColor(255,0,0);
-        Draw.rectangle(50,50,100,100);
-        Draw.rectangle(250,250,100,100);
-        Draw.rectangle(200,0,200,200);
-        Draw.rectangle(0,200,200,200);
-        Draw.setColor(0,0,255);
-        Draw.rectangle(250,50,100,100);
-        Draw.rectangle(50,250,100,100);
-
-    }
-
-    public static void exercise4()
-    {
-        //insert code here to make a new window with your fourth drawing
-        Draw.window(800,800);
-        Draw.setFill(true);
-        Draw.setColor(0,0,255);
-        Draw.polygon(100,400,200,100,600,100,700,400,400,600);
-
-    }
+  public static void turnRight()
+  {
+    //Pre: Robot faces forwards
+    //Post: Robot faces right
+    Robot.turnLeft();
+    Robot.turnLeft();
+    Robot.turnLeft();
+  }  
+ 
+  public static void moveLight()
+  {
+    //Pre: Robot is in front of a dark square
+    //Post: Robot is on a light square
+    Robot.move();
+    Robot.makeLight();  
+  }
+  
+  public static void cleanRow()
+  {
+    //Pre: Robot is in front of an uncleaned row
+    //Post: Robot is facing a wall, to the left is another row
+    moveLight();
+    moveLight();
+    moveLight();
+    moveLight();
+    moveLight();
+    Robot.move();
+  }  
+  
+  public static void cleanSquare()
+  {
+    Robot.load("square.txt");
+    Robot.setDelay(0.1);
     
-     public static void exercise5()
-    {
-        //insert code here to make a new window with your fourth drawing
-        Draw.window(800,800);
-        Draw.setFill(false);
-        Draw.setColor(0,0,255);
-        Draw.polygon(100,400,600,100,400,600,200,100,700,400);
-
-    }
+    //INSERT CODE HERE
+    cleanRow();
+    Robot.turnLeft();
+    cleanRow();
+    Robot.turnLeft();
+    cleanRow();
+    Robot.turnLeft();
+    cleanRow();
+    Robot.turnLeft();
+  }
+  
+  public static void moveDark()
+  {
+    //Pre: Robot is in front of a light square
+    //Post: Robot is on a dark square
+    Robot.move();
+    Robot.makeDark();  
+  }
+  
+  public static void darkenRow()
+  {
+    //Pre: To the right of the robot is a light row
+    //Post: To the right of the robot is a dark row
+    turnRight();
+    moveDark();
+    moveDark();
+    moveDark();
+    moveDark();
+    moveDark();
+    moveDark();
+    Robot.turnLeft();
+    Robot.turnLeft();
+    Robot.move();
+    Robot.move();
+    Robot.move();
+    Robot.move();
+    Robot.move();
+    moveDark();
+    turnRight();
+  } 
+  
+  public static void darkenComb()
+  {
+    Robot.load("comb.txt");
+    Robot.setDelay(0.05);
+    
+    //INSERT CODE HERE
+    darkenRow();
+    moveDark();
+    Robot.move();
+    darkenRow();
+    moveDark();
+    Robot.move();
+    darkenRow();
+    moveDark();
+    Robot.move();
+    darkenRow();
+    moveDark();
+    Robot.move();
+    darkenRow();
+  } 
+  
+  public static void checkerRow()
+  {
+    //Pre: Start on a light square, facing a row about to be checkered
+    //Post: End on a light square, facing a wall
+    Robot.makeDark();
+    Robot.move();
+    moveDark();
+    Robot.move();
+    moveDark();
+    Robot.move();
+    moveDark();
+    Robot.move();    
+  } 
+  
+  public static void checkerFourth()
+  {
+    //Pre: Start on a light square, facing a row about to be checkered
+    //Post: Start on a light square, facing a row about to be checkered
+    checkerRow();
+    turnRight();
+    Robot.move();
+    turnRight();
+    checkerRow();
+    Robot.turnLeft();
+    Robot.move();
+    Robot.turnLeft();   
+  } 
+  
+  public static void makeCheckered()
+  {
+    Robot.load("blank.txt");
+    Robot.setDelay(0.05);
+    
+    //INSERT CODE HERE
+    checkerFourth();
+    checkerFourth();
+    checkerFourth();
+    checkerRow();
+    turnRight();
+    Robot.move();
+    turnRight();
+    checkerRow();
+  }
+}
